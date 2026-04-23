@@ -13,7 +13,12 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-
+    'valute' => [
+        'base_url' => env('VALUTE_API_URL'),
+    ],
+    'weather' => [
+        'base_url' => env('WEATHER_API_URL')
+    ],
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

@@ -1,12 +1,15 @@
 <?php
 namespace App\Services;
+use App\Http\Integrations\Weather\Requests\WeatherRequest;
+use App\Http\Integrations\Weather\WeatherConnector;
 use App\Models\Weather;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 
 class WeatherService{
     public function fetchAndStore():Weather{
-        $response = Http::get('https://api.open-meteo.com/v1/forecast?latitude=41.3111&longitude=69.2797&current_weather=true');
+    $connector = new WeatherConnector();
+    $response = $connector -> send(new WeatherRequest());
         if (!$response->successful()){
             throw new \Exception('Weather Api dan ma\'lumot kelmayaptiiii!'); 
         }

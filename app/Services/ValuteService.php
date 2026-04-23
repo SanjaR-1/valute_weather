@@ -1,11 +1,14 @@
 <?php
 namespace App\Services;
+use App\Http\Integrations\Valute\Requests\ValuteRequest;
+use App\Http\Integrations\Valute\ValuteConnector;
 use App\Models\Valute;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 class ValuteService{
     public function fetchAndStore():Valute{
-        $response = Http::get('https://cbu.uz/uz/arkhiv-kursov-valyut/json/USD/');
+        $connector = new ValuteConnector();
+        $response = $connector -> send(new ValuteRequest());
         if (!$response->successful()){
             throw new \Exception('Valute Api dan ma\'lumot kelmayaptiiii!'); 
         }
